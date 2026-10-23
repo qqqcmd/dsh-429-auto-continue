@@ -1,0 +1,21 @@
+# dsh-429-auto-continue bundle patch: inserts the host plugin row into the
+# profile roster. Applied as a profile bundle layer (the `dsh.bundle.patch`
+# manifest field). The node half (exports ".") runs in the host process; no
+# browser half.
+#
+# Config (all optional):
+#   delayMs          — 429 后等待多少毫秒再自动发送（默认 10000 = 10 秒）
+#   message          — 自动发送的文本（默认「继续任务」）
+#   codes            — 触发自动发送的错误码白名单（默认 RATE_LIMIT / QUOTA；
+#                      商汤 SenseNova 的 429 insufficient_quota 归类为 QUOTA）
+#   excludeSubagents — 是否排除子会话（默认 true）
+- insert:
+    - id: 429-auto-continue
+      name: dsh-429-auto-continue
+      config:
+        delayMs: 10000
+        message: 继续任务
+        codes:
+          - RATE_LIMIT
+          - QUOTA
+        excludeSubagents: true
