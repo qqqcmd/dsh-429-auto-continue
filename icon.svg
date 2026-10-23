@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- 原创图标：循环箭头 + 计时沙漏，表示“自动重试/自动继续” -->
+  <rect width="64" height="64" rx="14" fill="#1e293b"/>
+  <g stroke="#fbbf24" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 38 a14 14 0 1 1 4-11"/>
+    <polyline points="18 20 18 27 25 27"/>
+    <path d="M46 26 a14 14 0 1 1-4 11"/>
+    <polyline points="46 44 46 37 39 37"/>
+  </g>
+  <path d="M27 33 l10-3 M27 33 l10 3 M32 30 l4-3 M32 34 l4 3" stroke="#34d399" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>
