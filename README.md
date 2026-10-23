@@ -66,27 +66,6 @@ dsh plugin --profile desktop add dsh-429-auto-continue
 [429-auto-continue] 429 fallback: sent "继续任务" to session <id>
 ```
 
-## 1.0.2 修复记录（插件页「1 异常」的根因）
-
-之前重启后插件管理器显示 **1 异常（phase = failed）**，有两个独立原因，均已修复：
-
-1. **`export const Config` 是纯对象**。cordis 的 `resolveConfig`
-   （`@deepseek-ai/cordis/lib/index.js:956`）会把插件导出的 `Config` 当
-   Standard Schema 用：`runtime.Config["~standard"].validate(config)`。
-   纯对象没有 `~standard`，启动时抛
-   `TypeError: Cannot read properties of undefined (reading 'validate')`，
-   该 entry 直接 failed。现在**不导出 `Config`**，改用 `DEFAULT_CONFIG` +
-   `apply()` 内部归一化（与 `dsh-retry-boost` 同一范式）。
-2. **`ctx.sessionController` 属性读取会抛**。没声明 `inject` 时，cordis 的 ctx
-   代理直接抛 `cannot get property "sessionController" without inject`，且原代码
-   在定时器回调里抛出 → 未捕获 rejection → 宿主
-   `fatal load failure`（真实 429 时不是续跑，是把 DSH 打挂）。现在用
-   `ctx.get("sessionController", false)`（inject-free 读取）按需取用，
-   定时器回调与事件监听都做了兜底，永不向外抛。
-
-回归用例：`node smoke-429-auto-continue.mjs`（8 例，含 service 不可达场景与
-「不得导出 Config」守卫）。
-
 ## 许可证
 
 MIT
