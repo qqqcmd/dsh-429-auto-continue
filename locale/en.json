@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "429 Auto-Continue",
+    "description": "When a turn dies from a 429 / rate-limit / quota failure, wait a configurable delay (default 10s) and automatically send \"继续任务\" to the same session so the task resumes by itself."
+  }
+}
